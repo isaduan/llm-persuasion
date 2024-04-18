@@ -24,12 +24,6 @@ import numpy as np
 import json
 import matplotlib.pyplot as plt
 from langchain.embeddings import GPT4AllEmbeddings
-import openai
-from openai import OpenAI
-client = OpenAI(
-    # defaults to os.environ.get("OPENAI_API_KEY")
-    api_key="ENTER YOUR KEY",
-)
 
 # define function word categories
 tag_to_category = {
