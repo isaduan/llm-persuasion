@@ -2,7 +2,7 @@
 
 The code in this repository is the supplemental code for Isabella Duan's MA thesis at the University of Chicago.
 
-The code is written in Python 3.9.7 and all of its dependencies can be installed by running the following in the terminal (with the `requirements.txt` file included in this repository):
+The code is written in Python 3.9.7 and all of its dependencies can be installed by running the following in the terminal:
 
 ```
 pip install -r requirements.txt
