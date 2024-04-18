@@ -8,3 +8,5 @@ matplotlib==3.4.3
 seaborn==0.11.2
 sklearn==1.2.2
 numpy==1.25.2
+torch==2.2.1
+transformers==4.38.2
