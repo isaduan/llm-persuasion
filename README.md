@@ -8,9 +8,8 @@ The code is written in Python 3.9.7 and all of its dependencies can be installed
 pip install -r requirements.txt
 ```
 
-Then, you can import the `metrics` module located in this repository to reproduce our analysis of the 9 linguistic mimicry metrics:
+Then, you run `metrics.py` to reproduce our analysis of how well our 9 linguistic mimicry metrics perform on 4000 samples constrcuted from a small reddit corpus made available by [Covokit](https://convokit.cornell.edu/documentation/reddit-small.html#usage). This script will generate two json files,  `results_similar.json` and  `results_dissimilar.json`, which reproduce data in Table 1. 
 
-
-```python
-import metrics
+```
+python metrics.py
 ```
