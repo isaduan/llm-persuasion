@@ -21,6 +21,7 @@ from convokit.model import speaker
 from convokit import coordination
 import pandas as pd
 import numpy as np
+import json
 import matplotlib.pyplot as plt
 from langchain.embeddings import GPT4AllEmbeddings
 import openai
@@ -390,3 +391,12 @@ def run_train_and_evaluate_all():
   
   results_similar = train_and_evaluate_all(similar_dataset, feature_functions)
   results_dissimilar = train_and_evaluate_all(dissimilar_dataset, feature_functions)
+    # store results in JSON files
+    with open('results_similar.json', 'w') as similar_file:
+        json.dump(results_similar, similar_file, indent=4)
+    
+    with open('results_dissimilar.json', 'w') as dissimilar_file:
+        json.dump(results_dissimilar, dissimilar_file, indent=4)
+
+if __name__ == "__main__":
+    run_train_and_evaluate_all()
