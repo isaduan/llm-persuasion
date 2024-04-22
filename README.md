@@ -13,10 +13,10 @@ You can run `metrics.py` to reproduce our analysis of how well our 9 linguistic 
 ```
 python metrics.py
 ```
-Next, you can run `benchmark.py` to reproduce our analysis on benchmarking GPT-4's liguistic mimicry capability with the mimicry naturally occuring between humans. This script will render and save two figures,  `three.png`, which contrasts GPT-4's mimicry capability when construct new arguments and when rewriting original reply with that of original human reply, as well as `prompt.png`, which shows GPT-4's linguistic mimicry capability under general vs. specific prompts.
+Next, you can use `benchmark.py` to reproduce our analysis on benchmarking GPT-4's liguistic mimicry capability with the mimicry naturally occuring between humans. You will need to provide your own OpenAI key on line 11 of the script. This script will render and save two figures,  `three.png`, which contrasts GPT-4's mimicry capability when construct new arguments and when rewriting original reply with that of original human reply, as well as `prompt.png`, which shows GPT-4's linguistic mimicry capability under general vs. specific prompts.
 
 ```
-python metrics.py
+python benchmark.py
 ```
 
 ![Linguistic mimicry in GPT-4 Generated Texts with Specific vs. General Prompts](https://github.com/isaduan/llm-persuasion/blob/main/prompt.png)
