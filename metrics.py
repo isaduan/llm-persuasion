@@ -298,7 +298,7 @@ def prepare_corpus():
     df = reddit.get_utterances_dataframe()
   
     # read similarity matrix datafrmame
-    subreddit_similarity_df = pd.read_csv('/root/similarity_matrix.csv', index_col=0)
+    subreddit_similarity_df = pd.read_csv('/similarity_matrix.csv', index_col=0)
   
     # define number of samples
     num_positive_samples = 2000
@@ -385,12 +385,11 @@ def run_train_and_evaluate_all():
   
   results_similar = train_and_evaluate_all(similar_dataset, feature_functions)
   results_dissimilar = train_and_evaluate_all(dissimilar_dataset, feature_functions)
-    # store results in JSON files
-    with open('results_similar.json', 'w') as similar_file:
-        json.dump(results_similar, similar_file, indent=4)
-    
-    with open('results_dissimilar.json', 'w') as dissimilar_file:
-        json.dump(results_dissimilar, dissimilar_file, indent=4)
+  # store results in JSON files
+  with open('results_similar.json', 'w') as similar_file:
+      json.dump(results_similar, similar_file, indent=4)
+  with open('results_dissimilar.json', 'w') as dissimilar_file:
+      json.dump(results_dissimilar, dissimilar_file, indent=4)
 
 if __name__ == "__main__":
     run_train_and_evaluate_all()
