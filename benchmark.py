@@ -1,10 +1,9 @@
 import metrics
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 from convokit import Corpus, download
 from sklearn.preprocessing import MinMaxScaler
-# download bert and gpt4all models to be used in method 8 and 9
-bert_model = SentenceTransformer('all-MiniLM-L6-v2')
-gpt4all_embd = GPT4AllEmbeddings()
-
 import openai
 from openai import OpenAI
 client = OpenAI(
@@ -15,7 +14,8 @@ client = OpenAI(
 
 def get_any_speaker(corpus, num_utterance, character_limit, df_requirement):
   """
-  Input: Corpus object
+  Input: Corpus object, total number of utterance to be sampled, 
+  minimum number of characters required, and the minimum number of replies required
   Output:
     Two lists of utterances, with texts, speaker, and reply-to info.
     One stores "select utterance," the other "utterance they reply to."
@@ -48,7 +48,7 @@ def get_any_speaker(corpus, num_utterance, character_limit, df_requirement):
 
 def llm_style_match(utts_lst, model_name, prompt):
   """
-  Input: list of uttereance objects.
+  Input: list of uttereance objects, model name, and prompt.
   Output:
     A list of utterance objects, each one is created by LLM to match the original
     utterance.
@@ -98,14 +98,17 @@ def get_coordination_scores(utterances1, utterances2):
             'cat_boolean': metrics.calculate_function_word_cat_presence(u1.text, u2.text),
             'tfidf': metrics.calculate_tfidf_coordination_score(u1.text, u2.text),
             'count_vectorizer': metrics.calculate_count_vectorizer_coordination_score(u1.text, u2.text),
-            'sent_bert': metrics.calculate_sbert_coordination_score(u1.text, u2.text, bert_model),
-            'GP4all': metrics.calculate_gpt4all_coordination_score(u1.text, u2.text, gpt4all_embd)
+            'sent_bert': metrics.calculate_sbert_coordination_score(u1.text, u2.text, metrics.bert_model),
+            'GP4all': metrics.calculate_gpt4all_coordination_score(u1.text, u2.text, metrics.gpt4all_embd)
         }
         scores.append(score)
 
     return scores
 
 def transform_values(scores_lst):
+  """
+  Map all mimicry scores by different metrics onto a [0,1] scale for comparision. 
+  """
   values = [[d[key] for key in d] for d in scores_lst]
   scaler = MinMaxScaler()
   scaler.fit(values)
@@ -131,7 +134,7 @@ def calculate_average_scores(score_list):
 
 def llm_rewrite_replies(select_utts, reply_utts, model_name, prompt):
   """
-  Input: list of uttereance objects.
+  Input: two list of uttereance objects, model name, prompt.
   Output:
     A list of utterance objects, each one is created by LLM to rewrite select_utts to match the original
     utterance, reply_utts.
@@ -220,3 +223,59 @@ def get_all_scores(specific_mc_prompt, specific_rewrit_prompt, general_mc_prompt
   ge_rw = get_llm_rewritten_reply_scores(general_rewrit_prompt, select_utts, reply_utts)
 
   return original_reply_scores, sp_mc, sp_rw, ge_mc, ge_rw
+
+def plot_scores_specific_prompt(sp_mc, sp_rw, original_reply_scores):
+    # Define the metrics and their values for Method 1 and Method 2
+    metrics_names = ['Category frequency', 'Exact word frequency', 'Exact word count',
+               'Word category count', 'Shared category ratio', 'TF-IDF', 'Count vectors',
+               'BERT embedding', 'GP4all embedding']
+
+    data = pd.DataFrame({
+        'Metrics': metrics_names * 3,
+        'Values': sp_mc + sp_rw + original_reply_scores,
+        'Method': ['GPT-4 (McDonald argument)'] * len(metrics_names) + ['GPT-4 (Rewrite)'] * len(metrics_names) + ['Reddit User Reply'] * len(metrics_names)
+    })
+
+    plt.figure(figsize=(12, 6))
+    sns.barplot(x='Metrics', y='Values', hue='Method', data=data, palette='Set2')
+    
+    plt.xlabel('Linguistic Mimicry Metrics', fontsize=12)
+    plt.ylabel('Scores', fontsize=12)
+    plt.title('Linguistic mimicry in GPT-4 Generated Texts vs. Reddit User Reply, with Specific Prompts', fontsize=14)
+    plt.xticks(rotation=45, ha='right')
+    
+    # Show plot
+    plt.tight_layout()
+    plt.legend(loc='upper right')
+    plt.savefig('three.png', dpi=600)
+    plt.show()
+
+def plot_scores_general_v_specific_prompt(sp_mc, sp_rw, ge_mc, ge_rw):
+    metrics_names = ['Category frequency', 'Exact word frequency', 'Exact word count',
+               'Word category count', 'Shared category ratio', 'TF-IDF', 'Count vectors',
+               'BERT embedding', 'GP4all embedding']
+
+    data = pd.DataFrame({
+        'Metrics': metrics_names * 4,
+        'Values': sp_mc + sp_rw + ge_mc + ge_rw
+        'Method': ['Specific Prompt (McDonald argument)'] * len(metrics-names) + ['Specific Prompt (Rewrite)'] * len(metrics_names) \
+    + ['General Prompt (McDonald argument)'] * len(metrics_names) + ['General Prompt (Rewrite)'] * len(metrics_names)
+})
+
+    plt.figure(figsize=(12, 6))
+    sns.barplot(x='Metrics', y='Values', hue='Method', data=data, palette='Set2')
+    plt.xlabel('Linguistic Mimicry Metrics', fontsize=12)
+    plt.ylabel('Scores', fontsize=12)
+    plt.title('Linguistic mimicry in GPT-4 Generated Texts with Specific vs. General Prompts', fontsize=14)
+    plt.xticks(rotation=45, ha='right')
+    
+    plt.tight_layout()
+    plt.legend(loc='upper right')
+    plt.savefig('prompt.png', dpi=600)
+    plt.show()
+
+if __name__ == "__main__":
+    original_reply_scores, sp_mc, sp_rw, ge_mc, ge_rw = get_all_scores(specific_mc_prompt, specific_rewrit_prompt, general_mc_prompt, general_rewrit_prompt)
+    plot_scores_specific_prompt(sp_mc, sp_rw, original_reply_scores)
+    plot_scores_general_v_specific_prompt(sp_mc, sp_rw, ge_mc, ge_rw)
+    
