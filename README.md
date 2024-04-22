@@ -13,7 +13,7 @@ You can run `metrics.py` to reproduce our analysis of how well our 9 linguistic 
 ```
 python metrics.py
 ```
-Next, you can use `benchmark.py` to reproduce our analysis on benchmarking GPT-4's liguistic mimicry capability with the mimicry naturally occuring between humans. You will need to provide your own OpenAI key on line 11 of the script. This script will render and save two figures,  `three.png`, which contrasts GPT-4's mimicry capability when construct new arguments and when rewriting original reply with that of original human reply, as well as `prompt.png`, which shows GPT-4's linguistic mimicry capability under general vs. specific prompts.
+Next, you can use `benchmark.py` to reproduce our analysis on benchmarking GPT-4's liguistic mimicry capability with the mimicry naturally occuring between humans. You will need to provide your own OpenAI key on line 11 of the script. This script will render and save two figures, `three.png`, which contrasts GPT-4's mimicry capability when construct new arguments and when rewriting original reply with that of original human reply, as well as `prompt.png`, which shows GPT-4's linguistic mimicry capability under general vs. specific prompts.
 
 ```
 python benchmark.py
@@ -22,3 +22,5 @@ python benchmark.py
 ![Linguistic mimicry in GPT-4 Generated Texts with Specific vs. General Prompts](https://github.com/isaduan/llm-persuasion/blob/main/prompt.png)
 
 ![Linguistic mimicry in GPT-4 Generated Texts vs. Reddit User Reply, with Specific Prompts](https://github.com/isaduan/llm-persuasion/blob/main/three.png)
+
+You can use `survey_construction.py` to reproduce how we constructed unique survey for each participant in order to test the persuasive effectiveness of linguistically personalized arguments compared to general arguments. For privacy and data security concerns, we do not provide the raw data or the code we use to access participants' reddit text history. However, you can use your own data for implementation. Data should be stored in CSV format with each row representing a participant. A 'Text' column must store the participant's text data as lists of strings. The script will produce a new csv file `survey_ready.csv` with new columns e.g. "arg1" that stores arguments ready to run the survey experiment.
