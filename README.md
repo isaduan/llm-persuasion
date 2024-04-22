@@ -13,7 +13,7 @@ You can run `metrics.py` to reproduce our analysis of how well our 9 linguistic 
 ```
 python metrics.py
 ```
-Next, you can use `benchmark.py` to reproduce our analysis on benchmarking GPT-4's liguistic mimicry capability with the mimicry naturally occuring between humans. You will need to provide your own OpenAI API key on line 11 of the script. This script will render and save two figures, `three.png`, which contrasts GPT-4's mimicry capability when construct new arguments and when rewriting original reply with that of original human reply, as well as `prompt.png`, which shows GPT-4's linguistic mimicry capability under general vs. specific prompts.
+Next, you can use `benchmark.py` to reproduce our analysis on benchmarking GPT-4's liguistic mimicry capability with the mimicry naturally occuring between humans. You will need to provide your own OpenAI API key on line 11 of the script. This script will produce two figures, `three.png`, which contrasts GPT-4's mimicry capability when construct new arguments and when rewriting original reply with that of original human reply, as well as `prompt.png`, which shows GPT-4's linguistic mimicry capability under general vs. specific prompts.
 
 ```
 python benchmark.py
@@ -23,13 +23,13 @@ python benchmark.py
 
 ![Linguistic mimicry in GPT-4 Generated Texts with Specific vs. General Prompts](https://github.com/isaduan/llm-persuasion/blob/main/prompt.png)
 
-You can use `survey_construction.py` to reproduce how we constructed personalized surveys for each participant, testing linguistically personalized arguments' persuasive effectiveness against general arguments. For privacy and data security concerns, we do not provide the raw data or the code to access participants' reddit text history. However, you can implement using your own CSV-formatted data, `text_data.csv`, with each row representing a participant and a 'Text' column storing text data as lists of strings. Again, you would need to provide your own OpenAI API key. The script will produce a new csv file `survey_ready.csv` with new columns e.g. "arg1" that stores arguments ready to run the survey experiment.
+You can use `survey_construction.py` to reproduce how we constructed personalized surveys for each participant, testing linguistically personalized arguments' persuasive effectiveness against general arguments. For privacy and data security concerns, we do not provide the raw data or the code to access participants' reddit text history. However, you can implement using your own CSV-formatted data, `text_data.csv`, with each row representing a participant and a 'Text' column storing text data as lists of strings. Again, you would need to provide your own OpenAI API key. The script will produce a new csv file `survey_ready.csv` with new columns e.g. "arg1" that stores arguments ready to run the survey experiment. In `general_arguments.txt`, we provide general arguments we used in our survey experiment.
 
 ```
 python survey_construction.py
 ```
 
-Finally, you can use `survey_analysis.py` to reproduce our analysis of survey results. This script will render and save four figures. `simple_change.png` and `weighted_change.png` visualize the change in prediction after exposed to different types of arguments, unweighted and weighted by the level of confidence. `appeal.png` shows the perceived appealingness of different arguments, whereas `confirm.png` examines whether confirming or opposing prior beliefs has an effect on the size of prediction change. 
+Finally, you can use `survey_analysis.py` to reproduce our analysis of survey results. This script will analyze the anonymized survey data (only containing participants' responses), `survey_data.csv`, and produce four figures. `simple_change.png` and `weighted_change.png` visualize the change in prediction after exposed to different types of arguments, unweighted and weighted by the level of confidence. `appeal.png` shows the perceived appealingness of different arguments, whereas `confirm.png` examines whether confirming or opposing prior beliefs has an effect on the size of prediction change. Two sample t-tests will also be performed and their results printed, reproducing data in Table 2. 
 
 ```
 python survey_analysis.py
