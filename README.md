@@ -21,4 +21,4 @@ python metrics.py
 
 ![Linguistic mimicry in GPT-4 Generated Texts with Specific vs. General Prompts](https://github.com/isaduan/llm-persuasion/blob/main/prompt.png)
 
-![Linguistic mimicry in GPT-4 Generated Texts vs. Reddit User Reply, with Specific Prompts]((https://github.com/isaduan/llm-persuasion/blob/main/three.png)
+![Linguistic mimicry in GPT-4 Generated Texts vs. Reddit User Reply, with Specific Prompts](https://github.com/isaduan/llm-persuasion/blob/main/three.png)
