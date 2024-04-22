@@ -1,6 +1,6 @@
 # Large-Scale Linguistic Mimicry: Evaluating Persuasion Efficiency of Large Language Models
 
-The code in this repository is the supplemental code for Isabella Duan's MA thesis at the University of Chicago.
+The code in this repository is the supplemental code for Fengyu "Isabella" Duan's paper "Large-Scale Linguistic Mimicry," which is submitted in partial fulfillment of the requirements for the Master of Arts degree in Computational Social Science at the University of Chicago.
 
 The code is written in Python 3.9.7 and all of its dependencies can be installed by running the following in the terminal:
 
