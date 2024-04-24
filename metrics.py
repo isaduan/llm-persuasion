@@ -87,9 +87,9 @@ def calculate_function_word_cat_frequency(utterance1: str, utterance2: str):
 
 
 def identify_function_words(tokens):
-    ```
+    """
     Helper Function to identify function words based on POS tags
-    ```
+    """
     pos_tags = nltk.pos_tag(tokens)
     # function words typically fall under these POS tags
     function_word_tags = ['CC', 'DT', 'IN', 'RB', 'MD', 'PDT', 'PRP', 'RP', 'CD',
@@ -369,7 +369,7 @@ def train_and_evaluate_all(datasets, feature_functions, label_column='SameSpeake
     return results
 
 def run_train_and_evaluate_all():
-  dataset = prepare_corpus():
+  dataset = prepare_corpus()
   similar_dataset = dataset[dataset['SimilarSubredditLabel'] == 1]
   dissimilar_dataset = dataset[dataset['SimilarSubredditLabel'] == 0]
   
