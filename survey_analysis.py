@@ -48,9 +48,8 @@ def calculate_prediction_change(dataframe):
 
     return df
 
- def count_value(dataframe, tuple_value):
-
-   # create boolean masks for each condition
+def count_value(dataframe, tuple_value):
+    # create boolean masks for each condition
     rule1_mask = (dataframe['rule1'] == tuple_value)
     rule2_mask = (dataframe['rule2'] == tuple_value)
     rule3_mask = (dataframe['rule3'] == tuple_value)
@@ -103,7 +102,7 @@ def plot_and_t_test_prediction_change(dataframe):
     
     plt.savefig('simple_change.png', dpi=900)
 
- def count_value_weighted(dataframe, tuple_value):
+def count_value_weighted(dataframe, tuple_value):
     """
     Similar to the function `count_value` but weighting the change in prediction
     with the level of certainty
@@ -159,7 +158,7 @@ def plot_and_t_test_weighted_prediction_change(dataframe):
   
   plt.savefig('weighted_change.png', dpi=900)
 
- def count_appealingness(dataframe, tuple_value):
+def count_appealingness(dataframe, tuple_value):
     rule1_mask = (dataframe['rule1'] == tuple_value)
     rule2_mask = (dataframe['rule2'] == tuple_value)
     rule3_mask = (dataframe['rule3'] == tuple_value)
@@ -174,7 +173,7 @@ def plot_and_t_test_weighted_prediction_change(dataframe):
 
     return [int(x) for x in total_aggregate]
 
-  def plot_applingnness(dataframe):
+def plot_applingnness(dataframe):
     positive_general = count_appealingness(dataframe, '(True, False)')
     positive_personalized = count_appealingness(dataframe, '(True, True)')
     negative_personalized = count_appealingness(dataframe, '(False, True)')
@@ -227,7 +226,7 @@ def conditional_on_prior(dataframe):
 
     return dataframe
 
- def analyze_prior(dataframe, whether_affirm):
+def analyze_prior(dataframe, whether_affirm):
     rule1_mask = (dataframe['affirm1'] == whether_affirm)
     rule2_mask = (dataframe['affirm2'] == whether_affirm)
     rule3_mask = (dataframe['affirm3'] == whether_affirm)
@@ -243,7 +242,7 @@ def conditional_on_prior(dataframe):
 
     return total_aggregate
 
- def plot_prior(dataframe):
+def plot_prior(dataframe):
     dataframe = conditional_on_prior(dataframe)
     affirm_agg = analyze_prior(dataframe, True)
     not_affirm_agg = analyze_prior(dataframe, False)
